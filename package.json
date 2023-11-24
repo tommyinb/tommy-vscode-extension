@@ -3,6 +3,7 @@
   "displayName": "Tommy VS Code Extension",
   "description": "Help Tommy write his code",
   "version": "0.0.1",
+  "publisher": "tommyiasia",
   "engines": {
     "vscode": "^1.84.0"
   },

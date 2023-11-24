@@ -1,71 +1,54 @@
-# tommy-vscode-extension README
+# tommy-vscode-extension
 
-This is the README for your extension "tommy-vscode-extension". After writing up a brief description, we recommend including the following sections.
+We will install this extension locally with Git as the version control manager.
 
-## Features
+## 1. Checkout the Project
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Checkout this project in your VS code extension folder.
 
-For example if there is an image subfolder under your extension project workspace:
+Make sure `(user)\.vscode\extensions\tommy-vscode-extension\package.json` is in place.
 
-\!\[feature X\]\(images/feature-x.png\)
+## 2. Install and Compile
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Run `npm install` and `npm run compile`
 
-## Requirements
+## 3. Open Visual Studio Code
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+By default, VS Code searches your `extensions` folder on startup. You will see the extension in extension tab.
 
-## Extension Settings
+However, the extension may not be working. You need to trust it and and update your VS Code first.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## 4. Trust the Project
 
-For example:
+In VS code, open the project folder `(user)\.vscode\extensions\tommy-vscode-extension` and add it to trusted paths
 
-This extension contributes the following settings:
+## 5. Update Visual Studio Code
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This project requires VS Code 1.84. Update your VS Code if needed.
 
-## Known Issues
+Afterwards, restart your VS Code and you should see the extension up and running.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## 6. Update the Extensions JSON
 
-## Release Notes
+In case your VS code unfortunately does not install the extension automatically.
 
-Users appreciate release notes as you update your extension.
+You can manually add the follow to `(user)\.vscode\extensions\extensions.json`
 
-### 1.0.0
+```json
+{
+  "identifier": { "id": "tommyiasia.tommy-vscode-extension" },
+  "version": "0.0.1",
+  "location": {
+    "$mid": 1,
+    "fsPath": "c:\\Users\\tommy\\.vscode\\extensions\\tommy-vscode-extension",
+    "_sep": 1,
+    "path": "/c:/Users/tommy/.vscode/extensions/tommy-vscode-extension",
+    "scheme": "file"
+  },
+  "relativeLocation": "tommy-vscode-extension"
+}
+```
 
-Initial release of ...
+## 7. Develop
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+You can edit the project and commit it as any of our normal projects.
