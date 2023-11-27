@@ -18,11 +18,19 @@
     "commands": [
       {
         "command": "tommy-vscode-extension.helloWorld",
-        "title": "Hello World"
+        "title": "Hello world"
       },
       {
         "command": "tommy-vscode-extension.react.newComponent",
-        "title": "Insert New Component Snippet"
+        "title": "Insert new component snippet"
+      },
+      {
+        "command": "tommy-vscode-extension.react.addClassname",
+        "title": "Add classname snippet"
+      },
+      {
+        "command": "tommy-vscode-extension.react.removeClassname",
+        "title": "Remove classname snippet"
       }
     ]
   },
@@ -34,6 +42,9 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
   },
+  "dependencies": {
+    "typescript": "^5.2.2"
+  },
   "devDependencies": {
     "@types/vscode": "^1.84.0",
     "@types/mocha": "^10.0.3",
@@ -43,7 +54,6 @@
     "eslint": "^8.52.0",
     "glob": "^10.3.10",
     "mocha": "^10.2.0",
-    "typescript": "^5.2.2",
     "@vscode/test-electron": "^2.3.6"
   }
 }

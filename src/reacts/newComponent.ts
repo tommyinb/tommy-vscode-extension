@@ -1,29 +1,69 @@
 import * as vscode from "vscode";
-import { NewComponentProvider } from "./newComponentProvider";
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(
-    vscode.commands.registerCommand(
-      "tommy-vscode-extension.react.newComponent",
-      () => {
-        const editor = vscode.window.activeTextEditor;
-        if (editor) {
-          const snippet = createSnippet(editor.document.fileName);
-          editor.insertSnippet(new vscode.SnippetString(snippet));
-        }
-      }
-    )
-  );
+  context.subscriptions.push(createProvider());
+  context.subscriptions.push(createCommand());
+}
 
-  context.subscriptions.push(
-    vscode.languages.registerCodeActionsProvider(
-      { language: "typescriptreact", scheme: "file" },
-      new NewComponentProvider()
-    )
+function createProvider() {
+  return vscode.languages.registerCodeActionsProvider(
+    {
+      language: "typescriptreact",
+      scheme: "file",
+    },
+    {
+      provideCodeActions(
+        document: vscode.TextDocument,
+        range: vscode.Range
+      ): vscode.ProviderResult<vscode.CodeAction[]> {
+        const text = document.getText().trim();
+        if (text.length > 0) {
+          return [];
+        }
+
+        const codeAction = new vscode.CodeAction(
+          "Insert react component snippet",
+          vscode.CodeActionKind.QuickFix
+        );
+
+        codeAction.command = {
+          command: "tommy-vscode-extension.react.newComponent",
+          title: "Insert react component snippet",
+          arguments: [document, range],
+        };
+
+        return [codeAction];
+      },
+    }
+  );
+}
+
+function createCommand() {
+  return vscode.commands.registerCommand(
+    "tommy-vscode-extension.react.newComponent",
+    () => {
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        const text = createSnippet(editor.document.fileName);
+        editor.insertSnippet(new vscode.SnippetString(text));
+      }
+    }
   );
 }
 
 function createSnippet(filePath: string): string {
+  const pathParts = getPathParts(filePath);
+
+  const componentName = pathParts[pathParts.length - 1];
+
+  const classText = pathParts.join("-");
+
+  return `export function ${componentName}() {
+  return <div className="${classText}"></div>;
+}`;
+}
+
+export function getPathParts(filePath: string) {
   const allParts = filePath.split(/[\\/]/);
 
   const startIndex = allParts.indexOf("src");
@@ -32,10 +72,6 @@ function createSnippet(filePath: string): string {
   const fileName = validParts[validParts.length - 1];
   const componentName = fileName.replace(".tsx", "");
 
-  const classParts = validParts.slice(0, -1);
-  const classText = [...classParts, componentName].join("-");
-
-  return `export function ${componentName}() {
-  return <div className="${classText}"></div>;
-}`;
+  const pathParts = validParts.slice(0, -1);
+  return [...pathParts, componentName];
 }
