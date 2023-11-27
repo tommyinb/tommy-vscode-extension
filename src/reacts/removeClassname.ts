@@ -2,12 +2,12 @@ import {
   ScriptKind,
   ScriptTarget,
   SourceFile,
-  SyntaxKind,
   createSourceFile,
   isInterfaceDeclaration,
   isJsxAttribute,
   isJsxElement,
   isJsxExpression,
+  isObjectBindingPattern,
   isReturnStatement,
   isTemplateExpression,
 } from "typescript";
@@ -115,8 +115,8 @@ function tryRemoveParameter(
     const parameter = parameters[0];
     if (
       !(
-        parameter.type?.getText() === "Props" &&
-        parameter.name.kind === SyntaxKind.ObjectBindingPattern
+        isObjectBindingPattern(parameter.name) &&
+        parameter.type?.getText() === "Props"
       )
     ) {
       return;
@@ -133,7 +133,14 @@ function tryRemoveParameter(
 
     if (elements.length > 1) {
       const startPosition = document.positionAt(element.pos);
-      const endPosition = document.positionAt(elements.end);
+
+      const tailingText = sourceFile.text.slice(element.end, element.end + 5);
+      const tailingMatch = /\s*,\s*/.exec(tailingText);
+
+      const endPosition = document.positionAt(
+        element.end + (tailingMatch ? tailingMatch[0].length : 0)
+      );
+
       const range = new vscode.Range(startPosition, endPosition);
 
       editBuilder.replace(range, "");

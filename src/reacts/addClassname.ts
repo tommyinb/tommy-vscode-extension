@@ -12,6 +12,7 @@ import {
   isJsxElement,
   isJsxExpression,
   isNoSubstitutionTemplateLiteral,
+  isObjectBindingPattern,
   isReturnStatement,
   isStringLiteral,
   isTemplateExpression,
@@ -121,12 +122,12 @@ function tryAddParameter(
       const parameter = parameters[0];
       if (
         !(
-          parameter.type?.getText() === "Props" &&
-          parameter.name.kind === SyntaxKind.ObjectBindingPattern
+          isObjectBindingPattern(parameter.name) &&
+          parameter.type?.getText() === "Props"
         )
       ) {
         const startPosition = document.positionAt(parameters.pos);
-        const endPosition = document.positionAt(parameters.pos + 1);
+        const endPosition = document.positionAt(parameters.pos);
         const range = new vscode.Range(startPosition, endPosition);
 
         editBuilder.replace(range, `{ className }: Props, `);
@@ -146,7 +147,7 @@ function tryAddParameter(
 
       if (!elements.some((element) => element.name.getText() === "className")) {
         const startPosition = document.positionAt(elements.pos);
-        const endPosition = document.positionAt(elements.pos + 1);
+        const endPosition = document.positionAt(elements.pos);
         const range = new vscode.Range(startPosition, endPosition);
 
         editBuilder.replace(range, "className, ");
@@ -277,16 +278,16 @@ function tryAddProperty(
         const endPosition = document.positionAt(members.end);
         const range = new vscode.Range(startPosition, endPosition);
 
-        editBuilder.replace(range, "\nclassName: string\n");
+        editBuilder.replace(range, "\n  className: string\n");
         return;
       }
 
       if (!members.some((member) => member.name?.getText() === "className")) {
         const startPosition = document.positionAt(members.pos);
-        const endPosition = document.positionAt(members.pos + 1);
+        const endPosition = document.positionAt(members.pos);
         const range = new vscode.Range(startPosition, endPosition);
 
-        editBuilder.replace(range, "\nclassName: string, \n");
+        editBuilder.replace(range, "\n  className: string,");
         return;
       }
     }
