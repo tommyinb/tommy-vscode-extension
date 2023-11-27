@@ -13,6 +13,7 @@ import {
   isJsxExpression,
   isNoSubstitutionTemplateLiteral,
   isObjectBindingPattern,
+  isParenthesizedExpression,
   isReturnStatement,
   isStringLiteral,
   isTemplateExpression,
@@ -185,10 +186,13 @@ function tryAddUsage(
           return;
         }
 
-        const returnExpression = innerNode.expression;
-        if (!returnExpression) {
+        if (!innerNode.expression) {
           return;
         }
+
+        const returnExpression = isParenthesizedExpression(innerNode.expression)
+          ? innerNode.expression.expression
+          : innerNode.expression;
 
         if (!isJsxElement(returnExpression)) {
           return;

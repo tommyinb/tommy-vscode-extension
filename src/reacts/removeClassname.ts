@@ -8,6 +8,7 @@ import {
   isJsxElement,
   isJsxExpression,
   isObjectBindingPattern,
+  isParenthesizedExpression,
   isReturnStatement,
   isTemplateExpression,
 } from "typescript";
@@ -169,10 +170,13 @@ function tryRemoveUsage(
           return;
         }
 
-        const returnExpression = innerNode.expression;
-        if (!returnExpression) {
+        if (!innerNode.expression) {
           return;
         }
+
+        const returnExpression = isParenthesizedExpression(innerNode.expression)
+          ? innerNode.expression.expression
+          : innerNode.expression;
 
         if (!isJsxElement(returnExpression)) {
           return;
