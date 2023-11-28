@@ -21,16 +21,24 @@
         "title": "Hello world"
       },
       {
-        "command": "tommy-vscode-extension.react.newComponent",
+        "command": "tommy-vscode-extension.reacts.newComponent",
         "title": "Insert new component snippet"
       },
       {
-        "command": "tommy-vscode-extension.react.addClassname",
+        "command": "tommy-vscode-extension.reacts.addClassname",
         "title": "Add classname snippet"
       },
       {
-        "command": "tommy-vscode-extension.react.removeClassname",
+        "command": "tommy-vscode-extension.reacts.removeClassname",
         "title": "Remove classname snippet"
+      },
+      {
+        "command": "tommy-vscode-extension.logics.formTernaryOperator",
+        "title": "Form ternary operator snippet"
+      },
+      {
+        "command": "tommy-vscode-extension.logics.formIfStatement",
+        "title": "Form if statement snippet"
       }
     ]
   },

@@ -27,7 +27,7 @@ function createProvider() {
         );
 
         codeAction.command = {
-          command: "tommy-vscode-extension.react.newComponent",
+          command: "tommy-vscode-extension.reacts.newComponent",
           title: "Insert react component snippet",
           arguments: [document, range],
         };
@@ -40,7 +40,7 @@ function createProvider() {
 
 function createCommand() {
   return vscode.commands.registerCommand(
-    "tommy-vscode-extension.react.newComponent",
+    "tommy-vscode-extension.reacts.newComponent",
     () => {
       const editor = vscode.window.activeTextEditor;
       if (editor) {

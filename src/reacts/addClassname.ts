@@ -62,7 +62,7 @@ function createProvider() {
         );
 
         codeAction.command = {
-          command: "tommy-vscode-extension.react.addClassname",
+          command: "tommy-vscode-extension.reacts.addClassname",
           title: "Add classname snippet",
           arguments: [document, range],
         };
@@ -75,7 +75,7 @@ function createProvider() {
 
 function createCommand() {
   return vscode.commands.registerCommand(
-    "tommy-vscode-extension.react.addClassname",
+    "tommy-vscode-extension.reacts.addClassname",
     () => {
       const editor = vscode.window.activeTextEditor;
       if (editor) {
@@ -190,9 +190,7 @@ function tryAddUsage(
           return;
         }
 
-        const returnExpression = isParenthesizedExpression(innerNode.expression)
-          ? innerNode.expression.expression
-          : innerNode.expression;
+        const returnExpression = removeParatheses(innerNode.expression);
 
         if (!isJsxElement(returnExpression)) {
           return;
@@ -263,6 +261,14 @@ function tryAddUsage(
       });
     }
   });
+}
+
+export function removeParatheses(node: Node): Node {
+  if (isParenthesizedExpression(node)) {
+    return removeParatheses(node.expression);
+  } else {
+    return node;
+  }
 }
 
 function tryAddProperty(

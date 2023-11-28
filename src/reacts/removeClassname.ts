@@ -8,12 +8,11 @@ import {
   isJsxElement,
   isJsxExpression,
   isObjectBindingPattern,
-  isParenthesizedExpression,
   isReturnStatement,
   isTemplateExpression,
 } from "typescript";
 import * as vscode from "vscode";
-import { isComponent } from "./addClassname";
+import { isComponent, removeParatheses } from "./addClassname";
 import { getPathParts } from "./newComponent";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -57,7 +56,7 @@ function createProvider() {
         );
 
         codeAction.command = {
-          command: "tommy-vscode-extension.react.removeClassname",
+          command: "tommy-vscode-extension.reacts.removeClassname",
           title: "Remove classname snippet",
           arguments: [document, range],
         };
@@ -70,7 +69,7 @@ function createProvider() {
 
 function createCommand() {
   return vscode.commands.registerCommand(
-    "tommy-vscode-extension.react.removeClassname",
+    "tommy-vscode-extension.reacts.removeClassname",
     () => {
       const editor = vscode.window.activeTextEditor;
       if (editor) {
@@ -174,9 +173,7 @@ function tryRemoveUsage(
           return;
         }
 
-        const returnExpression = isParenthesizedExpression(innerNode.expression)
-          ? innerNode.expression.expression
-          : innerNode.expression;
+        const returnExpression = removeParatheses(innerNode.expression);
 
         if (!isJsxElement(returnExpression)) {
           return;
