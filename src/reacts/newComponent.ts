@@ -16,8 +16,8 @@ function createProvider() {
         document: vscode.TextDocument,
         range: vscode.Range
       ): vscode.ProviderResult<vscode.CodeAction[]> {
-        const text = document.getText().trim();
-        if (text.length > 0) {
+        const text = document.getText();
+        if (text.length > 10) {
           return [];
         }
 
