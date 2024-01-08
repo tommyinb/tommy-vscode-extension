@@ -1,9 +1,10 @@
 {
   "name": "tommy-vscode-extension",
   "displayName": "Tommy VS Code Extension",
-  "description": "Help Tommy write his code",
+  "description": "Help Tommy write his code faster",
   "version": "0.0.1",
   "publisher": "tommyiasia",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.84.0"
   },
