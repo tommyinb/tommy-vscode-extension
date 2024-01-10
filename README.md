@@ -1,6 +1,8 @@
 # tommy-vscode-extension
 
-We will install this extension locally with Git as the version control manager.
+I would like to have an extension fitting my coding style. If you like to have one as else, feel free to copy this project.
+
+Here, we will install locally. As, there is no need to publish the extension to public.
 
 ## 1. Checkout the Project
 
@@ -16,7 +18,7 @@ Run `npm install` and `npm run compile`
 
 By default, VS Code searches your `extensions` folder on startup. You will see the extension in extension tab.
 
-However, the extension may not be working. You need to trust it and and update your VS Code first.
+However, the extension may not be working, if it is not trusted or VS Code is not updated.
 
 ## 4. Trust the Project
 
@@ -30,7 +32,7 @@ Afterwards, restart your VS Code and you should see the extension up and running
 
 ## 6. Update the Extensions JSON
 
-In case your VS code unfortunately does not install the extension automatically.
+In case your VS code still does not install the extension automatically.
 
 You can manually add the follow to `(user)\.vscode\extensions\extensions.json`
 
