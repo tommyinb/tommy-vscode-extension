@@ -51,6 +51,8 @@ You can manually add the follow to `(user)\.vscode\extensions\extensions.json`
 }
 ```
 
+Also check if VS Code accidentally put the extension into `(user)\.vscode\extensions\.obsolete` list.
+
 ## 7. Develop
 
 You can edit the project and commit it as any of our normal projects.
