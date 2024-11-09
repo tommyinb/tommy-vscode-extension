@@ -106,10 +106,10 @@ function tryAddParameter(
   editBuilder: vscode.TextEditorEdit
 ) {
   const pathParts = getPathParts(sourceFile.fileName);
-  const className = pathParts[pathParts.length - 1];
+  const componentName = pathParts[pathParts.length - 1];
 
   sourceFile.forEachChild((node) => {
-    if (isComponent(node, className)) {
+    if (isComponent(node, componentName)) {
       const { parameters } = node;
       if (parameters.length <= 0) {
         const startPosition = document.positionAt(parameters.pos);
@@ -160,11 +160,11 @@ function tryAddParameter(
 
 export function isComponent(
   node: Node,
-  className: string
+  name: string
 ): node is FunctionDeclaration {
   return !!(
     isFunctionDeclaration(node) &&
-    node.name?.getText() === className &&
+    node.name?.getText() === name &&
     node.modifiers?.some(
       (modifier) => modifier.kind === SyntaxKind.ExportKeyword
     )
@@ -177,10 +177,10 @@ function tryAddUsage(
   editBuilder: vscode.TextEditorEdit
 ) {
   const pathParts = getPathParts(sourceFile.fileName);
-  const className = pathParts[pathParts.length - 1];
+  const componentName = pathParts[pathParts.length - 1];
 
   sourceFile.forEachChild((outerNode) => {
-    if (isComponent(outerNode, className)) {
+    if (isComponent(outerNode, componentName)) {
       outerNode.body?.forEachChild((innerNode) => {
         if (!isReturnStatement(innerNode)) {
           return;
@@ -190,7 +190,7 @@ function tryAddUsage(
           return;
         }
 
-        const returnExpression = removeParatheses(innerNode.expression);
+        const returnExpression = removeParentheses(innerNode.expression);
 
         if (!isJsxElement(returnExpression)) {
           return;
@@ -263,9 +263,9 @@ function tryAddUsage(
   });
 }
 
-export function removeParatheses(node: Node): Node {
+export function removeParentheses(node: Node): Node {
   if (isParenthesizedExpression(node)) {
-    return removeParatheses(node.expression);
+    return removeParentheses(node.expression);
   } else {
     return node;
   }
@@ -276,11 +276,11 @@ function tryAddProperty(
   document: vscode.TextDocument,
   editBuilder: vscode.TextEditorEdit
 ) {
-  let olded = false;
+  let updated = false;
 
   sourceFile.forEachChild((node) => {
     if (isInterfaceDeclaration(node) && node.name?.getText() === "Props") {
-      olded = true;
+      updated = true;
 
       const { members } = node;
       if (members.length <= 0) {
@@ -303,7 +303,7 @@ function tryAddProperty(
     }
   });
 
-  if (olded) {
+  if (updated) {
     return;
   }
 

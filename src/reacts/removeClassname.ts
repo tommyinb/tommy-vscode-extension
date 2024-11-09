@@ -12,7 +12,7 @@ import {
   isTemplateExpression,
 } from "typescript";
 import * as vscode from "vscode";
-import { isComponent, removeParatheses } from "./addClassname";
+import { isComponent, removeParentheses } from "./addClassname";
 import { getPathParts } from "./newComponent";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -100,10 +100,10 @@ function tryRemoveParameter(
   editBuilder: vscode.TextEditorEdit
 ) {
   const pathParts = getPathParts(sourceFile.fileName);
-  const className = pathParts[pathParts.length - 1];
+  const componentName = pathParts[pathParts.length - 1];
 
   sourceFile.forEachChild((node) => {
-    if (!isComponent(node, className)) {
+    if (!isComponent(node, componentName)) {
       return;
     }
 
@@ -160,10 +160,10 @@ function tryRemoveUsage(
   editBuilder: vscode.TextEditorEdit
 ) {
   const pathParts = getPathParts(sourceFile.fileName);
-  const className = pathParts[pathParts.length - 1];
+  const componentName = pathParts[pathParts.length - 1];
 
   sourceFile.forEachChild((outerNode) => {
-    if (isComponent(outerNode, className)) {
+    if (isComponent(outerNode, componentName)) {
       outerNode.body?.forEachChild((innerNode) => {
         if (!isReturnStatement(innerNode)) {
           return;
@@ -173,7 +173,7 @@ function tryRemoveUsage(
           return;
         }
 
-        const returnExpression = removeParatheses(innerNode.expression);
+        const returnExpression = removeParentheses(innerNode.expression);
 
         if (!isJsxElement(returnExpression)) {
           return;

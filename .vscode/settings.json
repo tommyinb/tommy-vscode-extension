@@ -13,5 +13,7 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
     "source.fixAll.eslint": "explicit"
-  }
+  },
+
+  "cSpell.words": ["classname"]
 }

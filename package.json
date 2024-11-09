@@ -34,6 +34,10 @@
         "title": "Remove classname snippet"
       },
       {
+        "command": "tommy-vscode-extension.reacts.newStyleSheet",
+        "title": "Insert new style sheet snippet"
+      },
+      {
         "command": "tommy-vscode-extension.logics.formTernaryOperator",
         "title": "Form ternary operator snippet"
       },
