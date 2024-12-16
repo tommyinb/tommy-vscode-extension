@@ -8,19 +8,26 @@ export function activate(context: vscode.ExtensionContext) {
 
 function createListener() {
   return vscode.workspace.onDidCreateFiles(async (event) => {
-    const files = event.files.filter((file) => {
+    for (const file of event.files) {
       const match = /\/([A-Z]\w+).tsx$/.exec(file.path);
-      if (!match) {
-        return false;
+      if (match) {
+        const [, name] = match;
+        if (!name.endsWith("Context")) {
+          const oldText = await (async () => {
+            try {
+              const content = await vscode.workspace.fs.readFile(file);
+              return new TextDecoder().decode(content);
+            } catch {
+              return undefined;
+            }
+          })();
+
+          if (!oldText?.trim()) {
+            const newText = await createSnippet(file.path);
+            await vscode.workspace.fs.writeFile(file, Buffer.from(newText));
+          }
+        }
       }
-
-      const [, name] = match;
-      return !name.endsWith("Context");
-    });
-
-    for (const file of files) {
-      const text = await createSnippet(file.path);
-      await vscode.workspace.fs.writeFile(file, Buffer.from(text));
     }
   });
 }

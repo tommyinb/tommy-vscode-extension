@@ -9,15 +9,24 @@ export function activate(context: vscode.ExtensionContext) {
 
 function createListener() {
   return vscode.workspace.onDidCreateFiles(async (event) => {
-    const files = event.files.filter((file) =>
-      /\/([A-Z]\w+).css$/.exec(file.path)
-    );
+    for (const file of event.files) {
+      if (/\/([A-Z]\w+).css$/.exec(file.path)) {
+        const oldText = await (async () => {
+          try {
+            const content = await vscode.workspace.fs.readFile(file);
+            return new TextDecoder().decode(content);
+          } catch {
+            return undefined;
+          }
+        })();
 
-    for (const file of files) {
-      const text = createStyleText(file.path);
-      await vscode.workspace.fs.writeFile(file, Buffer.from(text));
+        if (!oldText?.trim()) {
+          const newText = createStyleText(file.path);
+          await vscode.workspace.fs.writeFile(file, Buffer.from(newText));
 
-      await tryInsertStyleImport(file.path);
+          await tryInsertStyleImport(file.path);
+        }
+      }
     }
   });
 }

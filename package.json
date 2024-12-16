@@ -1,72 +1,75 @@
 {
-  "name": "tommy-vscode-extension",
-  "displayName": "Tommy VS Code Extension",
-  "description": "Help Tommy write his code faster",
-  "version": "0.0.1",
-  "publisher": "tommyiasia",
-  "icon": "icon.png",
-  "engines": {
-    "vscode": "^1.84.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onLanguage:typescriptreact"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "tommy-vscode-extension.helloWorld",
-        "title": "Hello world"
-      },
-      {
-        "command": "tommy-vscode-extension.reacts.newComponent",
-        "title": "Insert new component snippet"
-      },
-      {
-        "command": "tommy-vscode-extension.reacts.addClassname",
-        "title": "Add classname snippet"
-      },
-      {
-        "command": "tommy-vscode-extension.reacts.removeClassname",
-        "title": "Remove classname snippet"
-      },
-      {
-        "command": "tommy-vscode-extension.reacts.newStyleSheet",
-        "title": "Insert new style sheet snippet"
-      },
-      {
-        "command": "tommy-vscode-extension.logics.formTernaryOperator",
-        "title": "Form ternary operator snippet"
-      },
-      {
-        "command": "tommy-vscode-extension.logics.formIfStatement",
-        "title": "Form if statement snippet"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
-  "dependencies": {
-    "typescript": "^5.2.2"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.84.0",
-    "@types/mocha": "^10.0.3",
-    "@types/node": "18.x",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "@typescript-eslint/parser": "^6.9.0",
-    "eslint": "^8.52.0",
-    "glob": "^10.3.10",
-    "mocha": "^10.2.0",
-    "@vscode/test-electron": "^2.3.6"
-  }
+	"name": "tommy-vscode-extension",
+	"displayName": "Tommy VS Code Extension",
+	"description": "Help Tommy write his code faster",
+	"version": "0.0.1",
+	"publisher": "tommyiasia",
+	"icon": "icon.png",
+	"engines": {
+		"vscode": "^1.84.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:typescriptreact"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "tommy-vscode-extension.helloWorld",
+				"title": "Hello world"
+			},
+			{
+				"command": "tommy-vscode-extension.reacts.newComponent",
+				"title": "Insert new component snippet"
+			},
+			{
+				"command": "tommy-vscode-extension.reacts.addClassname",
+				"title": "Add classname snippet"
+			},
+			{
+				"command": "tommy-vscode-extension.reacts.removeClassname",
+				"title": "Remove classname snippet"
+			},
+			{
+				"command": "tommy-vscode-extension.reacts.newStyleSheet",
+				"title": "Insert new style sheet snippet"
+			},
+			{
+				"command": "tommy-vscode-extension.logics.formTernaryOperator",
+				"title": "Form ternary operator snippet"
+			},
+			{
+				"command": "tommy-vscode-extension.logics.formIfStatement",
+				"title": "Form if statement snippet"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"dependencies": {
+		"typescript": "^5.2.2"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.84.0",
+		"@types/mocha": "^10.0.3",
+		"@types/node": "18.x",
+		"@typescript-eslint/eslint-plugin": "^6.9.0",
+		"@typescript-eslint/parser": "^6.9.0",
+		"eslint": "^8.52.0",
+		"glob": "^10.3.10",
+		"mocha": "^10.2.0",
+		"@vscode/test-electron": "^2.3.6"
+	},
+	"__metadata": {
+		"size": 61933192
+	}
 }
