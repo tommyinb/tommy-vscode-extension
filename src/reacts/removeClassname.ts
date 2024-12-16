@@ -213,6 +213,9 @@ function tryRemoveUsage(
           .replace(" ${className}", "")
           .replace("${className} ", "")
           .replace("${className}", "")
+          .replace(' ${className ?? ""}', "")
+          .replace('${className ?? ""} ', "")
+          .replace('${className ?? ""}', "")
           .trim();
 
         if (newValue) {
